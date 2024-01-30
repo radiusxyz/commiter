@@ -35,4 +35,6 @@ pub trait CommitmentScheme {
         pos: usize,
         witness: &Self::Witness,
     ) -> bool;
+
+    fn to_string(&self) -> String;
 }
