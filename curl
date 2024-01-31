@@ -1,0 +1,14 @@
+curl --request POST '3.35.234.132:8086/api/v2/query?org=RadiusLab' \
+--header 'Content-Type: application/vnd.flux' \
+--header 'Accept: application/csv \
+--header 'Authorization: Token iHvte_L0glb_Irn3FP-v-8o2P4UznKb-vmyfDJ5pEPffjNIPvpLwd0ptF5VNX1_FaYKCOLN_Pi0eYd8MK_mX-w==' \
+--data 'from(bucket: "sequencer")
+  |> range(start: v.timeRangeStart, stop: v.timeRangeStop)
+  |> filter(fn: (r) => r["_measurement"] == "log")
+  |> aggregateWindow(every: v.windowPeriod, fn: last, createEmpty: false)
+  |> yield(name: "last")'
+
+curl -XPOST "http://3.35.234.132:8086/api/v2/query?org=RadiusLab" \
+  -H "Authorization: Token iHvte_L0glb_Irn3FP-v-8o2P4UznKb-vmyfDJ5pEPffjNIPvpLwd0ptF5VNX1_FaYKCOLN_Pi0eYd8MK_mX-w==" \
+  -H "Content-Type: application/vnd.flux" \
+  -d 'from(bucket: "sequencer") |> range(start: -7d) |> filter(fn: (r) => r["_measurement"] == "log") |> filter(fn: (r) => r["_time"] <= 2024-01-30T02:42:06.51511704Z)'

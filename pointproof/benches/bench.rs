@@ -251,7 +251,6 @@ where
         .collect();
 
     let (comm, rand) = KZG10::<E, P>::commit(&ck, &p, None, None).unwrap();
-    
 
     let commitment = Commitment::<E, M>::commit(&prover_param, &message);
     let prover_param_clone = prover_param.clone();
@@ -263,7 +262,6 @@ where
         });
     });
 
-    
     // =================
     // open
     // =================
@@ -279,7 +277,6 @@ where
 
     let value = p.evaluate(&point);
     let proof = open(&ck, &p, point, &rand);
-
 
     let pos = (rng.next_u32() % dim as u32) as usize;
     let m = message[pos];
@@ -312,5 +309,4 @@ where
     ttt.bench_function(bench_str, move |b| {
         b.iter(|| assert!(commitment.verify(&verifier_param, &m, pos, &witness)));
     });
-
 }
