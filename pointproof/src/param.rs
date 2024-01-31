@@ -40,6 +40,8 @@ pub struct VerifierParam<E: PairingEngine, const N: usize> {
 }
 
 impl<E: PairingEngine, const N: usize> StructuredReferenceString<E, N> {
+    /// NOTE: If we can define a single CPU architecture on which we run the library,
+    /// we can use SSE 4.2 to improve performance instead of using Rayon's parallel iterator which consumes all cores.
     pub fn new_srs_for_testing<R: Rng>(rng: &mut R) -> Self {
         // compute the alpha base as 1, alpha, alpha^2... alpha^{2n-1}
         // with alpha^n empty

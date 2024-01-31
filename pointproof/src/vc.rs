@@ -8,9 +8,9 @@ use ark_ec::PairingEngine;
 use ark_ec::ProjectiveCurve;
 use ark_ff::Field;
 use ark_ff::PrimeField;
-use std::ops::Neg;
-use std::hash::{Hash, Hasher};
 use std::collections::hash_map::DefaultHasher;
+use std::hash::{Hash, Hasher};
+use std::ops::Neg;
 
 impl<E: PairingEngine, const N: usize> CommitmentScheme for Commitment<E, N> {
     type ProverParam = ProverParam<E, N>;
@@ -64,7 +64,7 @@ impl<E: PairingEngine, const N: usize> CommitmentScheme for Commitment<E, N> {
         E::product_of_pairings(pairing_prod_inputs.iter()) == vp.t
     }
 
-    fn to_string(&self,) -> String {
+    fn to_string(&self) -> String {
         let mut hasher = DefaultHasher::new();
         self.commitment.hash(&mut hasher);
         // println!("Hash is {:x}!", hasher.finish());
